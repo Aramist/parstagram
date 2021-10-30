@@ -10,10 +10,16 @@
 		1B7A22F067F8784A2159B9F3 /* Pods_Parstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631BC4940276588BBB284CF0 /* Pods_Parstagram.framework */; };
 		8098709F272C97C300792BB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8098709E272C97C300792BB3 /* AppDelegate.swift */; };
 		809870A1272C97C300792BB3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870A0272C97C300792BB3 /* SceneDelegate.swift */; };
-		809870A3272C97C300792BB3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870A2272C97C300792BB3 /* ViewController.swift */; };
 		809870A6272C97C300792BB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809870A4272C97C300792BB3 /* Main.storyboard */; };
 		809870A8272C97C400792BB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 809870A7272C97C400792BB3 /* Assets.xcassets */; };
 		809870AB272C97C400792BB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 809870A9272C97C400792BB3 /* LaunchScreen.storyboard */; };
+		809870B5272C9B0000792BB3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870B4272C9B0000792BB3 /* LoginViewController.swift */; };
+		809870B7272CB30400792BB3 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870B6272CB30400792BB3 /* FeedViewController.swift */; };
+		809870B9272CD62700792BB3 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870B8272CD62700792BB3 /* BaseNavigationController.swift */; };
+		809870BC272CD8DB00792BB3 /* SpecialTabContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870BB272CD8DB00792BB3 /* SpecialTabContainerController.swift */; };
+		809870BE272CDA3B00792BB3 /* PostImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870BD272CDA3B00792BB3 /* PostImageViewController.swift */; };
+		809870C0272CF16E00792BB3 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870BF272CF16E00792BB3 /* FeedTableViewCell.swift */; };
+		809870C2272CFC6600792BB3 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 809870C1272CFC6600792BB3 /* CommentTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +28,18 @@
 		8098709B272C97C300792BB3 /* Parstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Parstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8098709E272C97C300792BB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		809870A0272C97C300792BB3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		809870A2272C97C300792BB3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		809870A5272C97C300792BB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		809870A7272C97C400792BB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		809870AA272C97C400792BB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		809870AC272C97C400792BB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		809870B2272C986E00792BB3 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		809870B4272C9B0000792BB3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		809870B6272CB30400792BB3 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		809870B8272CD62700792BB3 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		809870BB272CD8DB00792BB3 /* SpecialTabContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTabContainerController.swift; sourceTree = "<group>"; };
+		809870BD272CDA3B00792BB3 /* PostImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageViewController.swift; sourceTree = "<group>"; };
+		809870BF272CF16E00792BB3 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		809870C1272CFC6600792BB3 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		F23292D81FD84EA7732B12F2 /* Pods-Parstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Parstagram.release.xcconfig"; path = "Target Support Files/Pods-Parstagram/Pods-Parstagram.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,9 +76,10 @@
 		8098709D272C97C300792BB3 /* Parstagram */ = {
 			isa = PBXGroup;
 			children = (
+				809870BA272CD8B500792BB3 /* Containers */,
+				809870B3272C9AE400792BB3 /* Scenes */,
 				8098709E272C97C300792BB3 /* AppDelegate.swift */,
 				809870A0272C97C300792BB3 /* SceneDelegate.swift */,
-				809870A2272C97C300792BB3 /* ViewController.swift */,
 				809870A4272C97C300792BB3 /* Main.storyboard */,
 				809870A7272C97C400792BB3 /* Assets.xcassets */,
 				809870A9272C97C400792BB3 /* LaunchScreen.storyboard */,
@@ -74,6 +87,27 @@
 				809870B2272C986E00792BB3 /* Config.xcconfig */,
 			);
 			path = Parstagram;
+			sourceTree = "<group>";
+		};
+		809870B3272C9AE400792BB3 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				809870B4272C9B0000792BB3 /* LoginViewController.swift */,
+				809870B6272CB30400792BB3 /* FeedViewController.swift */,
+				809870B8272CD62700792BB3 /* BaseNavigationController.swift */,
+				809870BD272CDA3B00792BB3 /* PostImageViewController.swift */,
+				809870BF272CF16E00792BB3 /* FeedTableViewCell.swift */,
+				809870C1272CFC6600792BB3 /* CommentTableViewCell.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		809870BA272CD8B500792BB3 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				809870BB272CD8DB00792BB3 /* SpecialTabContainerController.swift */,
+			);
+			path = Containers;
 			sourceTree = "<group>";
 		};
 		918C7E3E91B85E29AB238CFD /* Pods */ = {
@@ -208,8 +242,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				809870A3272C97C300792BB3 /* ViewController.swift in Sources */,
+				809870B5272C9B0000792BB3 /* LoginViewController.swift in Sources */,
+				809870C0272CF16E00792BB3 /* FeedTableViewCell.swift in Sources */,
 				8098709F272C97C300792BB3 /* AppDelegate.swift in Sources */,
+				809870B7272CB30400792BB3 /* FeedViewController.swift in Sources */,
+				809870C2272CFC6600792BB3 /* CommentTableViewCell.swift in Sources */,
+				809870B9272CD62700792BB3 /* BaseNavigationController.swift in Sources */,
+				809870BC272CD8DB00792BB3 /* SpecialTabContainerController.swift in Sources */,
+				809870BE272CDA3B00792BB3 /* PostImageViewController.swift in Sources */,
 				809870A1272C97C300792BB3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,6 +278,7 @@
 /* Begin XCBuildConfiguration section */
 		809870AD272C97C400792BB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 809870B2272C986E00792BB3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -299,6 +340,7 @@
 		};
 		809870AE272C97C400792BB3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 809870B2272C986E00792BB3 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

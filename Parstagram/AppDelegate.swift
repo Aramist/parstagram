@@ -7,13 +7,26 @@
 
 import UIKit
 
+import Parse
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Initialize parse
+        
+        // Honestly, if this fails there's no point in catching the exception
+        let appID = Bundle.main.infoDictionary!["API_APP_ID"] as! String
+        let clientKey = Bundle.main.infoDictionary!["API_CLIENT_KEY"] as! String
+        let parseConfig = ParseClientConfiguration {
+            $0.applicationId = appID
+            $0.clientKey = clientKey
+            $0.server = "https://parseapi.back4app.com"
+        }
+        Parse.initialize(with: parseConfig)
+        
         return true
     }
 
