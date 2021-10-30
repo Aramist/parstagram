@@ -143,6 +143,7 @@ class LoginViewController: UIViewController {
         user.password = password
         // The PFUser model requires a unique email but we won't be using one
         user.email = "\(username)@website.com"
+        user["profile_image"] = PFFileObject(data: UIImage(named: "default_profile_image")!.pngData()!)
         
         
         user.signUpInBackground() {(success, error) in

@@ -12,6 +12,7 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var postAuthor: UILabel!
     @IBOutlet weak var postCaption: UILabel!
+    @IBOutlet weak var postAge: UILabel!
     
     
     override func awakeFromNib() {
@@ -19,7 +20,7 @@ class FeedTableViewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        super.setSelected(false, animated: animated)
     }
 
 }

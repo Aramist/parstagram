@@ -20,10 +20,12 @@ class PostImageViewController: UIViewController {
     
     @IBOutlet weak var flipCameraButton: UIButton!
     @IBOutlet weak var captureButton: UIButton!
+    @IBOutlet weak var dismissViewButton: UIButton!
 
     @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var publishButton: UIButton!
     
+
     var cameraManager: CameraManager!
     
     override func viewDidLoad() {
@@ -47,6 +49,7 @@ class PostImageViewController: UIViewController {
         blackInnerCircle.layer.zPosition = 10
         captureButton.layer.zPosition = 10
         flipCameraButton.layer.zPosition = 10
+        dismissViewButton.layer.zPosition = 10
         
         previewView.layer.cornerRadius = 10
         
@@ -64,6 +67,7 @@ class PostImageViewController: UIViewController {
             cameraManager.stopCaptureSession()
             whiteOuterCircle.isHidden = true
             flipCameraButton.isHidden = true
+            // Don't hide the dismiss button, we still need it
         } else {
             print("Failed to unwrap captured image.")
         }
