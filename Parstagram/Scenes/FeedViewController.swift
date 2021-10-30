@@ -25,6 +25,8 @@ class FeedViewController: UIViewController {
         feedTableView.separatorStyle = .none
         
         setupRefresh()
+        
+        feedTableView.register(PostTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "postHeaderView")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,43 +122,35 @@ extension FeedViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
         let post = posts[section]
         guard let author = post["author"] as? PFUser,
-              let username = author.username else {return nil}
-        // Create a simple view with a profile image and username
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
-        view.translatesAutoresizingMaskIntoConstraints = false
+              let username = author.username,
+              let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "postHeaderView") as? PostTableSectionHeaderView
+        else {
+            print("Broke first guard clause. Section: \(section)")
+            return nil
+        }
         
-        let profileImageView = UIImageView()
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.image = UIImage(named: "default_profile_image")!
+        headerView.updateConfiguration(using: headerView.configurationState)
+        
+        guard let profileImageView = headerView.profileImageView,
+              let usernameLabel = headerView.usernameLabel
+        else {
+            print("Broke second guard block")
+            return nil
+        }
         
         // This property hasn't necessarily been set for all users
     profileIf: if let userProfileImage = author["profile_image"] as? PFFileObject{
             guard let imageURLString = userProfileImage.url,
                   let profileImageURL = URL(string: imageURLString) else {break profileIf}
-            asyncDownloadImage(from: profileImageURL, to: profileImageView)
+        asyncDownloadImage(from: profileImageURL, to: profileImageView)
         }
-        
-        let usernameLabel = UILabel()
-        usernameLabel.font = UIFont.systemFont(ofSize: 16)
-        usernameLabel.textColor = .white
         usernameLabel.text = username
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        print(username)
         
-        // Now arrange the subviews:
-        view.addSubview(profileImageView)
-        view.addSubview(usernameLabel)
-        NSLayoutConstraint.activate([
-            profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 40),
-            profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor),
-            usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
-            usernameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8)
-        ])
-        profileImageView.layer.cornerRadius = 20
-        return view
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -227,9 +227,9 @@
                                                 <constraint firstItem="1ck-nX-pie" firstAttribute="baseline" secondItem="s10-53-zOR" secondAttribute="baseline" id="3c7-aZ-qi5"/>
                                                 <constraint firstItem="1ck-nX-pie" firstAttribute="leading" secondItem="s10-53-zOR" secondAttribute="trailing" constant="2" id="G41-i9-yjT"/>
                                                 <constraint firstItem="s10-53-zOR" firstAttribute="leading" secondItem="2fm-Z5-SVQ" secondAttribute="leadingMargin" constant="45" id="GSM-W6-lit"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" placeholder="YES" id="Paf-AP-oV0"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" id="Paf-AP-oV0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="1ck-nX-pie" secondAttribute="trailing" constant="20" id="b2N-77-FMy"/>
-                                                <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" id="dwn-vr-O2G"/>
+                                                <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" placeholder="YES" id="dwn-vr-O2G"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
