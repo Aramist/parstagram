@@ -210,13 +210,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s10-53-zOR" userLabel="Author Label">
-                                                    <rect key="frame" x="65" y="15.999999999999998" width="37.666666666666657" height="17.333333333333329"/>
+                                                    <rect key="frame" x="35" y="15.999999999999998" width="37.666666666666657" height="17.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="499" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ck-nX-pie" userLabel="Content Label">
-                                                    <rect key="frame" x="104.66666666666666" y="16.333333333333332" width="269.33333333333337" height="16.999999999999996"/>
+                                                    <rect key="frame" x="74.666666666666657" y="16.333333333333332" width="299.33333333333337" height="16.999999999999996"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -226,7 +226,7 @@
                                                 <constraint firstItem="s10-53-zOR" firstAttribute="top" secondItem="2fm-Z5-SVQ" secondAttribute="topMargin" constant="5" id="1FO-Rw-8iU"/>
                                                 <constraint firstItem="1ck-nX-pie" firstAttribute="baseline" secondItem="s10-53-zOR" secondAttribute="baseline" id="3c7-aZ-qi5"/>
                                                 <constraint firstItem="1ck-nX-pie" firstAttribute="leading" secondItem="s10-53-zOR" secondAttribute="trailing" constant="2" id="G41-i9-yjT"/>
-                                                <constraint firstItem="s10-53-zOR" firstAttribute="leading" secondItem="2fm-Z5-SVQ" secondAttribute="leadingMargin" constant="45" id="GSM-W6-lit"/>
+                                                <constraint firstItem="s10-53-zOR" firstAttribute="leading" secondItem="2fm-Z5-SVQ" secondAttribute="leadingMargin" constant="15" id="GSM-W6-lit"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" id="Paf-AP-oV0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="1ck-nX-pie" secondAttribute="trailing" constant="20" id="b2N-77-FMy"/>
                                                 <constraint firstAttribute="bottomMargin" relation="lessThanOrEqual" secondItem="1ck-nX-pie" secondAttribute="bottom" constant="5" placeholder="YES" id="dwn-vr-O2G"/>
@@ -236,6 +236,26 @@
                                             <outlet property="authorLabel" destination="s10-53-zOR" id="fay-dt-XTw"/>
                                             <outlet property="contentLabel" destination="1ck-nX-pie" id="Zdt-2J-7nx"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addCommentCell" id="rCa-Em-IAb">
+                                        <rect key="frame" x="0.0" y="594.33334159851074" width="414" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rCa-Em-IAb" id="uxM-Tb-db2">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a comment..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0m-sB-xt3" userLabel="Add a comment">
+                                                    <rect key="frame" x="35.000000000000007" y="16" width="113.66666666666669" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" systemColor="systemGray2Color"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="x0m-sB-xt3" firstAttribute="leading" secondItem="uxM-Tb-db2" secondAttribute="leadingMargin" constant="15" id="Oio-Xz-n0x"/>
+                                                <constraint firstItem="x0m-sB-xt3" firstAttribute="top" secondItem="uxM-Tb-db2" secondAttribute="topMargin" constant="5" id="dqJ-uP-Lrr"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -493,6 +513,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

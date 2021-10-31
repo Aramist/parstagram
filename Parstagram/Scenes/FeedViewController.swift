@@ -7,31 +7,59 @@
 
 import UIKit
 
+import MessageInputBar
 import Parse
+
 
 class FeedViewController: UIViewController {
     
     @IBOutlet weak var feedTableView: UITableView!
     
     var refreshControl: UIRefreshControl?
+    let commentInputBar = MessageInputBar()
+    var showsCommentBar = false
     
     var posts: [PFObject] = []
+    
+    var activePost: PFObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        commentInputBar.inputTextView.placeholder = "Add a comment..."
+        commentInputBar.sendButton.title = "Post"
+        commentInputBar.delegate = self
+        // For some reason it was white by default and impossible to see...
+        commentInputBar.inputTextView.textColor = .black
+        
         feedTableView.delegate = self
         feedTableView.dataSource = self
         feedTableView.separatorStyle = .none
+        feedTableView.keyboardDismissMode = .interactive
         
         setupRefresh()
         
-        feedTableView.register(PostTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "postHeaderView")
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(keyboardWillBeHidden(note:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         queryPosts()
+    }
+    
+    override var inputAccessoryView: UIView? {
+        return commentInputBar
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return showsCommentBar
+    }
+    
+    @objc func keyboardWillBeHidden(note: Notification) {
+        commentInputBar.inputTextView.text = ""
+        showsCommentBar = false
+        becomeFirstResponder()
     }
     
     static func contentAgeString(forCreationDate date: Date?) -> String {
@@ -117,64 +145,18 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 50  // Should be enough space for the profile image
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        let post = posts[section]
-        guard let author = post["author"] as? PFUser,
-              let username = author.username,
-              let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "postHeaderView") as? PostTableSectionHeaderView
-        else {
-            print("Broke first guard clause. Section: \(section)")
-            return nil
-        }
-        
-        headerView.updateConfiguration(using: headerView.configurationState)
-        
-        guard let profileImageView = headerView.profileImageView,
-              let usernameLabel = headerView.usernameLabel
-        else {
-            print("Broke second guard block")
-            return nil
-        }
-        
-        // This property hasn't necessarily been set for all users
-    profileIf: if let userProfileImage = author["profile_image"] as? PFFileObject{
-            guard let imageURLString = userProfileImage.url,
-                  let profileImageURL = URL(string: imageURLString) else {break profileIf}
-        asyncDownloadImage(from: profileImageURL, to: profileImageView)
-        }
-        usernameLabel.text = username
-        print(username)
-        
-        return headerView
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let row = indexPath.row
-        let post = posts[row]
+        let postIdx = indexPath.section
+        let post = posts[postIdx]
+        let commentIdx = indexPath.row
         
-        guard let user = PFUser.current() else {return}
-        
-        let comment = PFObject(className: "Comment")
-        comment["author"] = user
-        comment["post"] = post
-        comment["content"] = "Some comment text"
-        
-        
-//        post.add(comment, forKey: "comments")
-//
-//        post.saveInBackground { (success, error) in
-//            if error != nil {
-//                print(error!.localizedDescription)
-//            } else {
-//                // nice
-//            }
-//        }
+        if commentIdx == commentCount(for: post) + 1 {
+            activePost = post
+            showsCommentBar = true
+            becomeFirstResponder()
+            commentInputBar.inputTextView.becomeFirstResponder()
+        }
     }
     
 }
@@ -187,7 +169,7 @@ extension FeedViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentCount(for: posts[section]) + 1
+        return commentCount(for: posts[section]) + 2
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -195,7 +177,20 @@ extension FeedViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 { // First row of a soction -> it's a post
+        let postIdx = indexPath.section
+        let commentIdx = indexPath.row
+        let post = posts[postIdx]
+        let imageFileObject = post["image"] as? PFFileObject
+        let author = post["author"] as? PFUser
+        let caption = post["caption"] as? String
+        let username = author?.username
+        let comments = post["comments"] as? [PFObject]
+        let commentCount = commentCount(for: post)
+        // Guard statements are left inside the if statements to allow empty cells to be
+        // returned if any info is missing
+        
+        
+        if indexPath.row == 0 { // First row of a section -> it's a post
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "postCell") as? FeedTableViewCell else {fatalError()}
             
             // Start by creating a horizontal line separating this post and the previous:
@@ -210,11 +205,8 @@ extension FeedViewController: UITableViewDataSource {
                 divider.heightAnchor.constraint(equalToConstant: 0.5)
             ])
             
-            let idx = indexPath.section
-            let post = posts[idx]
-            guard let author = post["author"] as? PFUser else {return cell}
-            guard let caption = post["caption"] as? String else {return cell}
-            guard let username = author.username else {return cell}
+            guard let caption = caption else {return cell}
+            guard let username = username else {return cell}
             
             cell.postAuthor.text = username
             cell.postCaption.text = caption
@@ -223,34 +215,49 @@ extension FeedViewController: UITableViewDataSource {
             cell.postImage.layer.cornerRadius = 5
             
             // TODO: include a default image asset for images that could not be loaded here
-            let imageURLObject = post["image"] as! PFFileObject
-            guard let imageURL = URL(string: imageURLObject.url ?? "") else {return cell}
+            guard let imageFileObject = imageFileObject,
+                  let imageURL = URL(string: imageFileObject.url ?? "") else {return cell}
             asyncDownloadImage(from: imageURL, to: cell.postImage)
-//            if let imageData = try? Data(contentsOf: imageURL) {
-//                cell.postImage.image = UIImage(data: imageData)
-//                cell.postImage.layer.cornerRadius = 5
-//            }
         
             return cell
-        } else {
+        } else if commentIdx < commentCount + 1{
+            guard let username = username,
+                  let comments = comments,
+                  let commentContent = comments[commentIdx - 1]["content"] as? String
+            else {return UITableViewCell()}
+            
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell") as? CommentTableViewCell else {fatalError()}
-            
-            let postIdx = indexPath.section
-            let commentIdx = indexPath.row - 1
-            let post = posts[postIdx]
-            
-            guard let author = post["author"] as? PFUser else {return cell}
-            guard let username = author.username else {return cell}
-            guard let comments = post["comments"] as? [PFObject] else {return cell}
-            
-            let comment = comments[commentIdx]
-            
-            guard let commentContent = comment["content"] as? String else {return cell}
             
             cell.authorLabel.text = username
             cell.contentLabel.text = commentContent
             
             return cell
+        } else {
+            // If this fails there is no recourse anyway
+            return tableView.dequeueReusableCell(withIdentifier: "addCommentCell")!
         }
+    }
+}
+
+extension FeedViewController: MessageInputBarDelegate {
+    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        if let post = activePost {
+            let comment = PFObject(className: "Comment")
+            comment["author"] = post["author"]
+            comment["post"] = post
+            comment["content"] = commentInputBar.inputTextView.text
+            
+            post.add(comment, forKey: "comments")
+            // Immediately update comments locally while the network request happens in the background
+            feedTableView.reloadData()
+            post.saveInBackground()
+        }
+        
+        // Clear the input field (copied from above) and dismiss it
+        commentInputBar.inputTextView.text = ""
+        showsCommentBar = false
+        becomeFirstResponder()
+        commentInputBar.inputTextView.resignFirstResponder()
     }
 }
